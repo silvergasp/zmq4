@@ -1,0 +1,41 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "auth.go",
+        "ctxoptions_unix.go",
+        "ctxoptions_windows.go",
+        "doc.go",
+        "dummy.c",
+        "errors.go",
+        "polling.go",
+        "reactor.go",
+        "socketget.go",
+        "socketget_unix.go",
+        "socketget_windows.go",
+        "socketset.go",
+        "utils.go",
+        "wrappers_unix.go",
+        "wrappers_windows.go",
+        "zmq4.go",
+        "zmq4.h",
+    ],
+    cgo = True,
+    cdeps = ["@vendor//libczmq","@vendor//libzmq"],
+    importpath = "github.com/pebbe/zmq4",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "auth_test.go",
+        "socketevent_test.go",
+        "zmq41_test.go",
+        "zmq42draft_test.go",
+        "zmq4_test.go",
+    ],
+    embed = [":go_default_library"],
+)
+
